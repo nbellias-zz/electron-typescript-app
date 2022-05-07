@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electron with Typescript</title>
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
-<body style="font-family: Verdana, Geneva, Tahoma, sans-serif;padding: 20px 20px;">
+<body>
     <h1>This is a typescript electron desktop app</h1>
+    <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates at inventore, cupiditate repudiandae tempora porro doloremque ea! Corrupti repudiandae consequuntur praesentium quam, error ipsum perferendis animi. Magni, asperiores ipsa.</h3>
+    <p>Current theme source: <strong id="theme-source">System</strong></p>
+
+    <button id="toggle-dark-mode">Toggle Dark Mode</button>
+    <button id="reset-to-system">Reset to System Theme</button>
+
+    <script src="renderer.js"></script>
 </body>
 </html>

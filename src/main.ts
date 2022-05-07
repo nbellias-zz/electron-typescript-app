@@ -1,12 +1,16 @@
-import { BrowserWindow, Menu } from 'electron';
+import { BrowserWindow, Menu, ipcMain, nativeTheme } from 'electron';
+import path from 'path';
 
 export default class Main {
     static mainWindow: Electron.BrowserWindow;
     static application: Electron.App;
     static BrowserWindow: any;
     static Menu: Electron.Menu;
-    
+
     private static onWindowAllClosed() {
+        // Quit when all windows are closed, except on macOS. There, it's common
+        // for applications and their menu bar to stay active until the user quits
+        // explicitly with Cmd + Q.
         if (process.platform !== 'darwin') {
             Main.application.quit();
         }
@@ -17,11 +21,36 @@ export default class Main {
         Main.mainWindow.close;
     }
 
-    private static onReady() {
-        Main.mainWindow = new Main.BrowserWindow({ width: 800, height: 600 });
-        Main.mainWindow
-            .loadURL('file://' + __dirname + '/index.html');
-        Main.mainWindow.on('closed', Main.onClose);
+    private static createWindow() {
+        // Create the browser window.
+        Main.mainWindow = new Main.BrowserWindow({
+            width: 800,
+            height: 600,
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
+        });
+        // and load the index.html of the app.
+        Main.mainWindow.loadFile('index.html');
+
+        ipcMain.handle('dark-mode:toggle', () => {
+            if (nativeTheme.shouldUseDarkColors) {
+                nativeTheme.themeSource = 'light'
+            } else {
+                nativeTheme.themeSource = 'dark'
+            }
+            return nativeTheme.shouldUseDarkColors
+        })
+
+        ipcMain.handle('dark-mode:system', () => {
+            nativeTheme.themeSource = 'system'
+        })
+        
+        // Open the DevTools.
+        Main.mainWindow.webContents.openDevTools();
+
+        //Main.mainWindow.on('closed', Main.onClose);
+        
     }
 
     static main(app: Electron.App, browserWindow: typeof BrowserWindow) {
@@ -33,6 +62,8 @@ export default class Main {
         Menu.setApplicationMenu(null);
         Main.application = app;
         Main.application.on('window-all-closed', Main.onWindowAllClosed);
-        Main.application.on('ready', Main.onReady);
+        Main.application.on('ready', Main.createWindow);
+
+        
     }
 }

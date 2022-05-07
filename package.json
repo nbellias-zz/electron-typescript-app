@@ -4,7 +4,7 @@
   "description": "An electron desktop application with typescript",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc && cp -f src/index.html dist",
+    "build": "tsc && cp -f src/index.html src/styles.css src/preload.js src/renderer.js dist",
     "start": "npm run build && electron dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

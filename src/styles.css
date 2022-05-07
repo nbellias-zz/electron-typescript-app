@@ -1,0 +1,12 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 20px, 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body { background: #333; color: white; }
+}
+
+@media (prefers-color-scheme: light) {
+  body { background: #ddd; color: black; }
+}
