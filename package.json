@@ -14,7 +14,8 @@
   },
   "keywords": [
     "electron",
-    "typescript"
+    "typescript",
+    "desktop"
   ],
   "author": "Nikolaos Bellias",
   "license": "MIT",
