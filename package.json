@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/nbellias/electron-typescript-app#readme",
   "devDependencies": {
-    "electron": "^18.2.0",
+    "electron": "^18.3.7",
     "typescript": "^4.6.4"
   }
 }
